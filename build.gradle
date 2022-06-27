@@ -4,9 +4,23 @@ plugins {
     id 'java'
 }
 
+apply plugin: 'application'
+
 group = 'com.aaronr92'
 version = '0.5'
 sourceCompatibility = '11'
+mainClassName = "com.aaronr92.accountservice.AccountServiceApplication"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+jar {
+    manifest {
+        attributes "Main-Class" : "com.aaronr92.accountservice.AccountServiceApplication"
+    }
+}
 
 configurations {
     compileOnly {
@@ -32,8 +46,4 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
 }

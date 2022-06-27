@@ -4,6 +4,7 @@ import com.aaronr92.accountservice.entities.User;
 import com.aaronr92.accountservice.services.UserService;
 import com.aaronr92.accountservice.util.RoleOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 public class AdminController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping("/user")
     ResponseEntity<List<User>> getAllRoles() {
