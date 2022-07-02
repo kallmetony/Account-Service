@@ -1,7 +1,7 @@
 
 # Account Service
 
-API for company to handle employees, their authorities and payrolls.  
+API for company to handle employees' salaries and authorities.  
 All regitred emails must end with @acme.com  
 Service also has breached passwords table in the database.
 ## Tech Stack
