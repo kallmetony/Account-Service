@@ -211,9 +211,9 @@ Returns a list of all logs.
 * Java 11 or higher
 ## Run
 
-#### 1. Download .jar file from releases
+#### 1. Download .zip file from releases and extract it
 
-#### 2. Open cmd and navigate to downloaded .jar file
+#### 2. Open cmd and navigate to extracted .jar file
 
 ```
 cd <path>
