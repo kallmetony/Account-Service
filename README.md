@@ -2,9 +2,10 @@
 # Account Service
 
 REST service for company to handle employees' salaries and authorities.  
+It also includes self-signed **SSL** certificate.
 
-### Info
-All regitred emails must end with @acme.com, this can be changed in   
+### Important info
+All registered emails must end with @acme.com, this can be changed in   
 User entity at field email   
 Service also has breached passwords table in the database. 
 ## Tech Stack
@@ -20,9 +21,7 @@ Service also has breached passwords table in the database.
 **MySQL database**
 
 ## Requests and authorization
-
-Security requirements based on the **ASVS**
-
+   
 |                             | Anonymous | User | Accountant | Administrator | Auditor |
 | :-------------------------- | :-------- | :--- | :--------- | :------------ | :------ |
 | `POST api/auth/signup`      | +         | +    | +          | +             | -       |
@@ -35,8 +34,6 @@ Security requirements based on the **ASVS**
 | `PUT api/admin/user/role`   | -         | -    | -          | +             | -       |
 | `PUT api/admin/user/access` | -         | -    | -          | +             | -       |
 | `GET api/security/events`   | -         | -    | -          | -             | +       |
-
-
 
 ## API
 
@@ -57,7 +54,7 @@ Security requirements based on the **ASVS**
 
 #### Description
 Saves new employee in the database, password must be longer than 12 chars.  
-First registred user gets administrator authorities.
+First registered user gets administrator authorities.
 
 
 ### Change password
@@ -73,7 +70,7 @@ First registred user gets administrator authorities.
 }
 ```
 #### Description
-Saves new employees password in the database, password must be longer than 12 chars.
+Saves new employees' password in the database, password must be longer than 12 chars.
 
 
 ### Get payrolls
@@ -101,18 +98,18 @@ Returns all payments of user that send the request, if a period is specified ret
     {
         "employee": "<user email>",
         "period": "<mm-YYYY>",
-        "salary": <long>
+        "salary": "<long value>"
     },
     {
         "employee": "<user1 email>",
         "period": "<mm-YYYY>",
-        "salary": <long>
+        "salary": "<long value>"
     },
     ...
     {
         "employee": "<userN email>",
         "period": "<mm-YYYY>",
-        "salary": <long>
+        "salary": "<long value>"
     }
 ]
 ```
@@ -131,7 +128,7 @@ Adds new payrolls into database, must not be non-repetitive.
 {
     "employee": "<user email>",
     "period": "<mm-YYYY>",
-    "salary": <Long>
+    "salary": "<long value>"
 }
 ```
 
