@@ -1,4 +1,4 @@
-package com.aaronr92.accountservice.util;
+package com.aaronr92.accountservice.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -7,7 +7,7 @@ plugins {
 apply plugin: 'application'
 
 group = 'com.aaronr92'
-version = '0.5'
+version = '1.0'
 sourceCompatibility = '11'
 mainClassName = "com.aaronr92.accountservice.AccountServiceApplication"
 

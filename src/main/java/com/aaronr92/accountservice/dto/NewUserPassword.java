@@ -1,4 +1,4 @@
-package com.aaronr92.accountservice.util;
+package com.aaronr92.accountservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

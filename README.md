@@ -1,9 +1,12 @@
 
 # Account Service
 
-API for company to handle employees, their authorities and payrolls.  
-All regitred emails must end with @acme.com  
-Service also has breached passwords table in the database.
+REST service for company to handle employees' salaries and authorities.  
+
+### Info
+All regitred emails must end with @acme.com, this can be changed in   
+User entity at field email   
+Service also has breached passwords table in the database. 
 ## Tech Stack
 
 **Spring Boot**  
@@ -16,22 +19,22 @@ Service also has breached passwords table in the database.
 
 **MySQL database**
 
-
-
 ## Requests and authorization
 
 Security requirements based on the **ASVS**
 
-|                             | Anonymous | User | Accountant | Administrator |
-| :-------------------------- | :-------- | :--- | :--------- | :------------ |
-| `POST api/auth/signup`      | +         | +    | +          | +             |
-| `POST api/auth/changepass`  | -         | +    | +          | +             |
-| `GET api/empl/payment`      | -         | +    | +          | -             |
-| `POST api/acct/payments`    | -         | -    | +          | -             |
-| `PUT api/acct/payments`     | -         | -    | +          | -             |
-| `GET api/admin/user`        | -         | -    | -          | +             |
-| `DELETE api/admin/user`     | -         | -    | -          | +             |
-| `PUT api/admin/user/role`   | -         | -    | -          | +             |
+|                             | Anonymous | User | Accountant | Administrator | Auditor |
+| :-------------------------- | :-------- | :--- | :--------- | :------------ | :------ |
+| `POST api/auth/signup`      | +         | +    | +          | +             | -       |
+| `POST api/auth/changepass`  | -         | +    | +          | +             | -       |
+| `GET api/empl/payment`      | -         | +    | +          | -             | -       |
+| `POST api/acct/payments`    | -         | -    | +          | -             | -       |
+| `PUT api/acct/payments`     | -         | -    | +          | -             | -       |
+| `GET api/admin/user`        | -         | -    | -          | +             | -       |
+| `DELETE api/admin/user`     | -         | -    | -          | +             | -       |
+| `PUT api/admin/user/role`   | -         | -    | -          | +             | -       |
+| `PUT api/admin/user/access` | -         | -    | -          | +             | -       |
+| `GET api/security/events`   | -         | -    | -          | -             | +       |
 
 
 
@@ -98,18 +101,18 @@ Returns all payments of user that send the request, if a period is specified ret
     {
         "employee": "<user email>",
         "period": "<mm-YYYY>",
-        "salary": <long>
+        "salary": "<long value>"
     },
     {
         "employee": "<user1 email>",
         "period": "<mm-YYYY>",
-        "salary": <long>
+        "salary": "<long value>"
     },
     ...
     {
         "employee": "<userN email>",
         "period": "<mm-YYYY>",
-        "salary": <long>
+        "salary": "<long value>"
     }
 ]
 ```
@@ -128,7 +131,7 @@ Adds new payrolls into database, must not be non-repetitive.
 {
     "employee": "<user email>",
     "period": "<mm-YYYY>",
-    "salary": <Long>
+    "salary": "<long value>"
 }
 ```
 
@@ -163,7 +166,7 @@ Deletes from database user with specified email.
 ### Update user authorities
 
 ```
-  PUT api/acct/payments
+  PUT api/admin/user/role
 ```
 #### Request body
 ```json
@@ -177,31 +180,47 @@ Deletes from database user with specified email.
 #### Description
 Updates user roles
 
+
+### Lock/unlock user
+
+```
+  PUT api/admin/user/access
+```
+#### Request body
+```json
+{
+   "user": "<String value>",
+   "operation": "<[LOCK, UNLOCK]>" 
+}
+```
+
+#### Description
+Locks or unlocks specified user account
+
+
+### Get all logs
+
+```
+  GET api/security/events
+```
+
+#### Description
+Returns a list of all logs.
+
 ## Requirements 
 * Java 11 or higher
-* Gradle 7.4.1
 ## Run
 
-#### 1. Download repository files  
+#### 1. Download .jar file from releases
 
-#### 2. Open Command Prompt or PowerShell
-
-#### 3. Change directory to project
-
-#### 4. Execute command
+#### 2. Open cmd and navigate to downloaded .jar file
 
 ```
-gradle build
+cd <path>
 ```
 
-#### 5. Navigate to jars
+#### 3. Run jar
 
 ```
-cd build/libs
-```
-
-#### 6. Run jar
-
-```
-java -jar account-service-0.5.jar
+java -jar account-service.jar
 ```

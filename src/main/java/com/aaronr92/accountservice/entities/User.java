@@ -1,5 +1,6 @@
 package com.aaronr92.accountservice.entities;
 
+import com.aaronr92.accountservice.util.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -26,7 +27,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonIgnore
     private long id;
 
     @NotBlank
@@ -55,6 +55,14 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     @JsonIgnore
+    @Column
+    private boolean isNonLocked;
+
+    @JsonIgnore
+    @Column
+    private int failedAttempts;
+
+    @JsonIgnore
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -77,7 +85,7 @@ public class User implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isNonLocked;
     }
 
     @JsonIgnore
@@ -102,5 +110,10 @@ public class User implements UserDetails {
     @JsonIgnore
     public void removeAuthority(Role authority) {
         roles.remove(authority);
+    }
+
+    @JsonIgnore
+    public boolean isNonLocked() {
+        return isNonLocked;
     }
 }

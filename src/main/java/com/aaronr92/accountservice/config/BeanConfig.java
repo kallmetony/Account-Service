@@ -2,7 +2,9 @@ package com.aaronr92.accountservice.config;
 
 import com.aaronr92.accountservice.entities.BreachedPassword;
 import com.aaronr92.accountservice.repositories.BreachedPasswordRepository;
+import com.aaronr92.accountservice.services.AuditService;
 import com.aaronr92.accountservice.services.UserService;
+import com.aaronr92.accountservice.util.Action;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import java.time.Instant;
 import java.util.*;
 
 @Configuration
@@ -22,6 +23,9 @@ public class BeanConfig {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuditService auditService;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -36,33 +40,39 @@ public class BeanConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /*@Bean
+    @Bean
     CommandLineRunner commandLineRunner(BreachedPasswordRepository breachedPasswordRepository) {
         return args -> {
-            Set<String> breachedPasswords = new HashSet<>(
-                    Set.of("PasswordForJanuary", "PasswordForFebruary", "PasswordForMarch", "PasswordForApril",
-                            "PasswordForMay", "PasswordForJune", "PasswordForJuly", "PasswordForAugust",
-                            "PasswordForSeptember", "PasswordForOctober", "PasswordForNovember", "PasswordForDecember")
-            );
+            if (!breachedPasswordRepository.existsBreachedPasswordsByPassword("PasswordForJanuary")) {
+                Set<String> breachedPasswords = new HashSet<>(
+                        Set.of("PasswordForJanuary", "PasswordForFebruary", "PasswordForMarch", "PasswordForApril",
+                                "PasswordForMay", "PasswordForJune", "PasswordForJuly", "PasswordForAugust",
+                                "PasswordForSeptember", "PasswordForOctober", "PasswordForNovember", "PasswordForDecember")
+                );
 
-            breachedPasswords.forEach(pass -> breachedPasswordRepository.save(
-                    BreachedPassword.builder()
-                            .password(pass)
-                            .build()));
+                breachedPasswords.forEach(pass -> breachedPasswordRepository.save(
+                        BreachedPassword.builder()
+                                .password(pass)
+                                .build()));
+            }
         };
-    }*/
+    }
 
     @Bean
     public AccessDeniedHandler getAccessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
             response.setStatus(HttpStatus.FORBIDDEN.value());
-            response.setContentType("application/json");
             Map<String, Object> data = new LinkedHashMap<>();
-            data.put("timestamp", Instant.now().toString());
+            data.put("timestamp", Calendar.getInstance().getTime());
             data.put("status", HttpStatus.FORBIDDEN.value());
             data.put("error", "Forbidden");
             data.put("message", "Access Denied!");
             data.put("path", request.getRequestURI());
+
+            auditService.logEvent(Action.ACCESS_DENIED,
+                    request.getRemoteUser(),
+                    request.getServletPath(),
+                    request.getServletPath());
             response.getOutputStream()
                     .println(new ObjectMapper().writeValueAsString(data));
         };

@@ -1,6 +1,6 @@
 package com.aaronr92.accountservice.security;
 
-import com.aaronr92.accountservice.entities.Role;
+import com.aaronr92.accountservice.util.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,7 +17,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    CustomAuthenticationEntryPoint authenticationEntryPoint;
 
     @Autowired
     DaoAuthenticationProvider authenticationProvider;
@@ -33,9 +33,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
-                .authenticationEntryPoint(restAuthenticationEntryPoint) // Handle auth error
+                .authenticationEntryPoint(authenticationEntryPoint) // Handle auth error
                 .and()
-                .csrf().disable().headers().frameOptions().disable() // for Postman
+                .csrf().disable().headers().frameOptions().disable() // for Postman, the H2 console
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/auth/singup").permitAll()
@@ -47,8 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/acct/payments").hasAuthority(Role.ROLE_ACCOUNTANT.name())
                 .antMatchers(HttpMethod.PUT, "/api/acct/payments").hasAuthority(Role.ROLE_ACCOUNTANT.name())
                 .antMatchers("/api/admin/**").hasAuthority(Role.ROLE_ADMINISTRATOR.name())
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .antMatchers(HttpMethod.GET, "/api/security/**").hasAuthority(Role.ROLE_AUDITOR.name())
+                .antMatchers("/actuator/**").hasAuthority(Role.ROLE_ADMINISTRATOR.name())
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // no session

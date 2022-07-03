@@ -5,7 +5,7 @@ import com.aaronr92.accountservice.entities.User;
 import com.aaronr92.accountservice.exceptions.*;
 import com.aaronr92.accountservice.repositories.PaymentRepository;
 import com.aaronr92.accountservice.repositories.UserRepository;
-import com.aaronr92.accountservice.util.EmployeePaymentResponse;
+import com.aaronr92.accountservice.dto.EmployeePaymentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

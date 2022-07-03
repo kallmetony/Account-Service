@@ -3,7 +3,6 @@ package com.aaronr92.accountservice.entities;
 import com.aaronr92.accountservice.util.YearMonthDateConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import javax.persistence.*;
 import java.time.YearMonth;
 import java.util.Objects;
 
-@Entity(name = "payment")
+@Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"employee", "period"})})
 @Getter
 @Setter
@@ -20,7 +19,7 @@ import java.util.Objects;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private long id;
 
