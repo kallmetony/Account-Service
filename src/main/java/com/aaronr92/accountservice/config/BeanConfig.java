@@ -1,9 +1,9 @@
 package com.aaronr92.accountservice.config;
 
-import com.aaronr92.accountservice.entities.BreachedPassword;
-import com.aaronr92.accountservice.repositories.BreachedPasswordRepository;
-import com.aaronr92.accountservice.services.AuditService;
-import com.aaronr92.accountservice.services.UserService;
+import com.aaronr92.accountservice.entity.BreachedPassword;
+import com.aaronr92.accountservice.repository.BreachedPasswordRepository;
+import com.aaronr92.accountservice.service.AuditService;
+import com.aaronr92.accountservice.service.UserService;
 import com.aaronr92.accountservice.util.Action;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
-package com.aaronr92.accountservice.controllers;
+package com.aaronr92.accountservice.controller;
 
-import com.aaronr92.accountservice.entities.User;
-import com.aaronr92.accountservice.services.UserService;
+import com.aaronr92.accountservice.entity.User;
+import com.aaronr92.accountservice.service.UserService;
 import com.aaronr92.accountservice.dto.NewUserPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

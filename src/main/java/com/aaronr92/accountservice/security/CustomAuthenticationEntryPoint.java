@@ -1,9 +1,9 @@
 package com.aaronr92.accountservice.security;
 
-import com.aaronr92.accountservice.entities.User;
-import com.aaronr92.accountservice.repositories.UserRepository;
-import com.aaronr92.accountservice.services.AuditService;
-import com.aaronr92.accountservice.services.UserService;
+import com.aaronr92.accountservice.entity.User;
+import com.aaronr92.accountservice.repository.UserRepository;
+import com.aaronr92.accountservice.service.AuditService;
+import com.aaronr92.accountservice.service.UserService;
 import com.aaronr92.accountservice.util.Action;
 import com.aaronr92.accountservice.util.Role;
 import org.springframework.beans.factory.annotation.Autowired;

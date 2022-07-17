@@ -1,4 +1,4 @@
-package com.aaronr92.accountservice.entities;
+package com.aaronr92.accountservice.entity;
 
 import com.aaronr92.accountservice.util.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SortNatural;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,7 +26,8 @@ import java.util.*;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(generator = "mySeq")
+    @SequenceGenerator(name = "mySeq", sequenceName = "MY_SEQ", allocationSize = 1)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long id;
 

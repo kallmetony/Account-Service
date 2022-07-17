@@ -1,4 +1,4 @@
-package com.aaronr92.accountservice.exceptions;
+package com.aaronr92.accountservice.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

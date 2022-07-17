@@ -1,7 +1,9 @@
-package com.aaronr92.accountservice.controllers;
+package com.aaronr92.accountservice.controller;
 
-import com.aaronr92.accountservice.entities.User;
-import com.aaronr92.accountservice.services.UserService;
+import com.aaronr92.accountservice.entity.BreachedPassword;
+import com.aaronr92.accountservice.entity.User;
+import com.aaronr92.accountservice.service.BreachedPasswordService;
+import com.aaronr92.accountservice.service.UserService;
 import com.aaronr92.accountservice.dto.RoleOperation;
 import com.aaronr92.accountservice.dto.UserAccess;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,11 @@ public class AdminController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    BreachedPasswordService breachedPasswordService;
+
     @GetMapping("/user")
-    ResponseEntity<List<User>> getAllRoles() {
+    ResponseEntity<List<User>> getAllUsers() {
         return userService.getAllRoles();
     }
 
@@ -44,5 +49,15 @@ public class AdminController {
                                           @RequestBody UserAccess operation,
                                           HttpServletRequest request) {
         return userService.userAccessOperation(operation, admin.getEmail(), request.getServletPath());
+    }
+
+    @PostMapping("/breached-password")
+    ResponseEntity<?> addBreachedPassword(@RequestParam String password) {
+        return breachedPasswordService.addBreachedPassword(password);
+    }
+
+    @DeleteMapping("/breached-password")
+    ResponseEntity<?> removeBreachedPassword(@RequestParam String password) {
+        return breachedPasswordService.removeBreachedPassword(password);
     }
 }

@@ -1,7 +1,7 @@
-package com.aaronr92.accountservice.services;
+package com.aaronr92.accountservice.service;
 
-import com.aaronr92.accountservice.entities.Event;
-import com.aaronr92.accountservice.repositories.EventRepository;
+import com.aaronr92.accountservice.entity.Event;
+import com.aaronr92.accountservice.repository.EventRepository;
 import com.aaronr92.accountservice.util.Action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;

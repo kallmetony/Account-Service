@@ -1,4 +1,4 @@
-package com.aaronr92.accountservice.entities;
+package com.aaronr92.accountservice.entity;
 
 import com.aaronr92.accountservice.util.YearMonthDateConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,7 +19,8 @@ import java.util.Objects;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "mySeq")
+    @SequenceGenerator(name = "mySeq", sequenceName = "MY_SEQ", allocationSize = 1)
     @JsonIgnore
     private long id;
 

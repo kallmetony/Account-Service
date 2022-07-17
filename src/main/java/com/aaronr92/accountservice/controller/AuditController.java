@@ -1,7 +1,7 @@
-package com.aaronr92.accountservice.controllers;
+package com.aaronr92.accountservice.controller;
 
-import com.aaronr92.accountservice.entities.Event;
-import com.aaronr92.accountservice.services.AuditService;
+import com.aaronr92.accountservice.entity.Event;
+import com.aaronr92.accountservice.service.AuditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

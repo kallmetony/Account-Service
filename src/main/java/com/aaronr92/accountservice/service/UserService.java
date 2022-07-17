@@ -1,11 +1,11 @@
-package com.aaronr92.accountservice.services;
+package com.aaronr92.accountservice.service;
 
 import com.aaronr92.accountservice.dto.RoleOperation;
 import com.aaronr92.accountservice.dto.UserAccess;
-import com.aaronr92.accountservice.entities.User;
-import com.aaronr92.accountservice.exceptions.*;
-import com.aaronr92.accountservice.repositories.BreachedPasswordRepository;
-import com.aaronr92.accountservice.repositories.UserRepository;
+import com.aaronr92.accountservice.entity.User;
+import com.aaronr92.accountservice.exception.*;
+import com.aaronr92.accountservice.repository.BreachedPasswordRepository;
+import com.aaronr92.accountservice.repository.UserRepository;
 import com.aaronr92.accountservice.util.Action;
 import com.aaronr92.accountservice.util.Operation;
 import com.aaronr92.accountservice.util.Role;
@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -87,7 +88,7 @@ public class UserService implements UserDetailsService {
         return new ResponseEntity<>(Map.of("email", authUser.getEmail(),"status","The password has been updated successfully"), HttpStatus.OK);
     }
 
-    public ResponseEntity<User> updateRole(RoleOperation operation, String path , String adminEmail) {
+    public ResponseEntity<User> updateRole(RoleOperation operation, String path, String adminEmail) {
         User user = (User) loadUserByUsername(operation.getEmail());
         Role role = checkRole(operation.getRole());
 
@@ -95,6 +96,8 @@ public class UserService implements UserDetailsService {
             case "GRANT":
                 if (user.getRoles().contains(Role.ROLE_ADMINISTRATOR) || role == Role.ROLE_ADMINISTRATOR)
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The user cannot combine administrative and business roles!");
+                if (user.getRoles().contains(role))
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The user already has this role!");
                 user.grantAuthority(role);
 
                 String message = String.format("Grant role %s to %s", role.name().split("_")[1], user.getEmail());

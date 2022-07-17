@@ -1,4 +1,4 @@
-package com.aaronr92.accountservice.entities;
+package com.aaronr92.accountservice.entity;
 
 import com.aaronr92.accountservice.util.Action;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +19,8 @@ import java.time.LocalDateTime;
 public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(generator = "mySeq")
+    @SequenceGenerator(name = "mySeq", sequenceName = "MY_SEQ", allocationSize = 1)
     @JsonIgnore
     private long id;
 

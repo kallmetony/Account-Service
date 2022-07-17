@@ -1,5 +1,6 @@
-package com.aaronr92.accountservice.entities;
+package com.aaronr92.accountservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,9 @@ import javax.persistence.*;
 public class BreachedPassword {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "mySeq")
+    @SequenceGenerator(name = "mySeq", sequenceName = "MY_SEQ", allocationSize = 1)
+    @JsonIgnore
     private Long id;
 
     @Column

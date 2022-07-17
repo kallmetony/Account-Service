@@ -1,6 +1,6 @@
-package com.aaronr92.accountservice.repositories;
+package com.aaronr92.accountservice.repository;
 
-import com.aaronr92.accountservice.entities.BreachedPassword;
+import com.aaronr92.accountservice.entity.BreachedPassword;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -10,4 +10,6 @@ public interface BreachedPasswordRepository extends CrudRepository<BreachedPassw
 
     @Query
     Boolean existsBreachedPasswordsByPassword(String password);
+
+    BreachedPassword findByPassword(String password);
 }

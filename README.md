@@ -22,18 +22,20 @@ Service also has breached passwords table in the database.
 
 ## Requests and authorization
    
-|                             | Anonymous | User | Accountant | Administrator | Auditor |
-| :-------------------------- | :-------- | :--- | :--------- | :------------ | :------ |
-| `POST api/auth/signup`      | +         | +    | +          | +             | -       |
-| `POST api/auth/changepass`  | -         | +    | +          | +             | -       |
-| `GET api/empl/payment`      | -         | +    | +          | -             | -       |
-| `POST api/acct/payments`    | -         | -    | +          | -             | -       |
-| `PUT api/acct/payments`     | -         | -    | +          | -             | -       |
-| `GET api/admin/user`        | -         | -    | -          | +             | -       |
-| `DELETE api/admin/user`     | -         | -    | -          | +             | -       |
-| `PUT api/admin/user/role`   | -         | -    | -          | +             | -       |
-| `PUT api/admin/user/access` | -         | -    | -          | +             | -       |
-| `GET api/security/events`   | -         | -    | -          | -             | +       |
+|                                      | Anonymous | User | Accountant | Administrator | Auditor |
+|:-------------------------------------| :-------- | :--- | :--------- | :------------ | :------ |
+| `POST api/auth/signup`               | +         | +    | +          | +             | -       |
+| `POST api/auth/changepass`           | -         | +    | +          | +             | -       |
+| `GET api/empl/payment`               | -         | +    | +          | -             | -       |
+| `POST api/acct/payments`             | -         | -    | +          | -             | -       |
+| `PUT api/acct/payments`              | -         | -    | +          | -             | -       |
+| `GET api/admin/user`                 | -         | -    | -          | +             | -       |
+| `DELETE api/admin/user`              | -         | -    | -          | +             | -       |
+| `PUT api/admin/user/role`            | -         | -    | -          | +             | -       |
+| `PUT api/admin/user/access`          | -         | -    | -          | +             | -       |
+| `POST api/admin/breached-password`   | -         | -    | -          | +             | -       |
+| `DELETE api/admin/breached-password` | -         | -    | -          | +             | -       |
+| `GET api/security/events`            | -         | -    | -          | -             | +       |
 
 ## API
 
@@ -194,6 +196,37 @@ Updates user roles
 #### Description
 Locks or unlocks specified user account
 
+
+### Add breached password
+
+```
+  POST api/admin/breached-password
+```
+
+#### Request parameters
+
+| Parameter  | Type     | Description                       |
+|:-----------|:---------|:----------------------------------|
+| `password` | `string` | **Required**. The password to add |
+
+#### Description
+Adds breached password into database and not allows to set password as it
+
+
+### Remove breached password
+
+```
+  DELETE api/admin/breached-password
+```
+
+#### Request parameters
+
+| Parameter  | Type     | Description                          |
+|:-----------|:---------|:-------------------------------------|
+| `password` | `string` | **Required**. The password to delete |
+
+#### Description
+Removes provided breached password
 
 ### Get all logs
 

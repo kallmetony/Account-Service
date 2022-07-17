@@ -1,10 +1,10 @@
-package com.aaronr92.accountservice.services;
+package com.aaronr92.accountservice.service;
 
-import com.aaronr92.accountservice.entities.Payment;
-import com.aaronr92.accountservice.entities.User;
-import com.aaronr92.accountservice.exceptions.*;
-import com.aaronr92.accountservice.repositories.PaymentRepository;
-import com.aaronr92.accountservice.repositories.UserRepository;
+import com.aaronr92.accountservice.entity.Payment;
+import com.aaronr92.accountservice.entity.User;
+import com.aaronr92.accountservice.exception.*;
+import com.aaronr92.accountservice.repository.PaymentRepository;
+import com.aaronr92.accountservice.repository.UserRepository;
 import com.aaronr92.accountservice.dto.EmployeePaymentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +42,7 @@ public class PaymentService {
         return new ResponseEntity<>(Map.of("status", "Updated successfully!"), HttpStatus.OK);
     }
 
-    public ResponseEntity getPaymentForPeriod(String period, User user) {
+    public ResponseEntity<?> getPaymentForPeriod(String period, User user) {
         if (period == null) {
             List<Payment> payments = paymentRepository.findPaymentByEmployeeIgnoreCase(user.getEmail());
             payments.sort(Comparator.comparing(Payment::getPeriod).reversed());

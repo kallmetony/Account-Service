@@ -1,6 +1,6 @@
-package com.aaronr92.accountservice.repositories;
+package com.aaronr92.accountservice.repository;
 
-import com.aaronr92.accountservice.entities.Payment;
+import com.aaronr92.accountservice.entity.Payment;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.YearMonth;

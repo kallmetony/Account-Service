@@ -10,5 +10,7 @@ public enum Action {
     LOCK_USER,                          // administrator has locked a user
     UNLOCK_USER,                        // administrator has unlocked a user
     DELETE_USER,                        // administrator has deleted a user
-    BRUTE_FORCE                         // user has been blocked on suspicion of a brute force attack
+    BRUTE_FORCE,                        // user has been blocked on suspicion of a brute force attack
+    ADD_BREACHED_PASSWORD,              // breached password was added
+    REMOVE_BREACHED_PASSWORD            // breached password was deleted
 }

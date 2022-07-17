@@ -1,6 +1,6 @@
-package com.aaronr92.accountservice.repositories;
+package com.aaronr92.accountservice.repository;
 
-import com.aaronr92.accountservice.entities.User;
+import com.aaronr92.accountservice.entity.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

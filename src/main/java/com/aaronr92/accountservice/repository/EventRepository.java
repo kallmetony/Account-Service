@@ -1,6 +1,6 @@
-package com.aaronr92.accountservice.repositories;
+package com.aaronr92.accountservice.repository;
 
-import com.aaronr92.accountservice.entities.Event;
+import com.aaronr92.accountservice.entity.Event;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

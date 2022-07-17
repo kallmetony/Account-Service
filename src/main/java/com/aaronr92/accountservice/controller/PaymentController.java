@@ -1,8 +1,8 @@
-package com.aaronr92.accountservice.controllers;
+package com.aaronr92.accountservice.controller;
 
-import com.aaronr92.accountservice.entities.Payment;
-import com.aaronr92.accountservice.entities.User;
-import com.aaronr92.accountservice.services.PaymentService;
+import com.aaronr92.accountservice.entity.Payment;
+import com.aaronr92.accountservice.entity.User;
+import com.aaronr92.accountservice.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
