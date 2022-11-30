@@ -1,11 +1,10 @@
 package com.aaronr92.accountservice.controller;
 
-import com.aaronr92.accountservice.entity.BreachedPassword;
+import com.aaronr92.accountservice.dto.RoleOperation;
+import com.aaronr92.accountservice.dto.UserAccess;
 import com.aaronr92.accountservice.entity.User;
 import com.aaronr92.accountservice.service.BreachedPasswordService;
 import com.aaronr92.accountservice.service.UserService;
-import com.aaronr92.accountservice.dto.RoleOperation;
-import com.aaronr92.accountservice.dto.UserAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

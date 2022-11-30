@@ -19,7 +19,8 @@ public class BreachedPasswordService {
 
     public ResponseEntity<Map<String, String>> addBreachedPassword(String breachedPassword) {
         if (passwordRepository.existsBreachedPasswordsByPassword(breachedPassword))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This password is already saved");
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "This password is already saved");
 
         passwordRepository.save(BreachedPassword.builder().password(breachedPassword).build());
         return ResponseEntity.ok(Map.of("status", Message.ADD_BREACHED_PASSWORD.getMessage()));
@@ -27,7 +28,8 @@ public class BreachedPasswordService {
 
     public ResponseEntity<Map<String, String>> removeBreachedPassword(String breachedPassword) {
         if (!passwordRepository.existsBreachedPasswordsByPassword(breachedPassword))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No password found!");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No password found!");
 
         passwordRepository.delete(passwordRepository.findByPassword(breachedPassword));
         return ResponseEntity.ok(Map.of("status", Message.REMOVE_BREACHED_PASSWORD.getMessage()));
